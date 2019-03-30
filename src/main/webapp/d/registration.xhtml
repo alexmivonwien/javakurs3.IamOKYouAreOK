@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:body>
+	<script type="text/javascript">
+		    /**
+		     * Faces Validator
+		     */
+		    PrimeFaces.validator['custom.emailValidator'] = {
+		 
+		        pattern: /\S+@\S+/,
+		 
+		        validate: function(element, value) {
+		            //use element.data() to access validation metadata, in this case there is none.
+		            if(!this.pattern.test(value)) {
+		                throw {
+		                    summary: 'Validation Error',
+		                    detail: value + ' is not a valid email.'
+		                }
+		            }
+		        }
+		    };
+ 		 </script>
+	<ui:composition template="/WEB-INF/includes/d/template.xhtml">
+		<ui:define name="menu">
+			<ui:include src="/WEB-INF/includes/d/menu.xhtml" />
+		</ui:define>
+		<ui:define name="main_box">
+			<f:view>
+				<h:form>
+					<p:growl showDetail="true" />
+
+					<p:panel header="Register a new user">
+						<h:panelGrid columns="2" id="matchGrid" cellpadding="5">
+							<h:outputLabel for="username" value="Username: " />
+							<p:inputText id="username"
+								value="#{registrationBean.desiredUsername}" />
+
+							<h:outputLabel for="email" value="E-Mail:" />
+							<p:inputText id="email" value="#{registrationBean.email}">
+								<f:validator validatorId="custom.emailValidator" />
+							</p:inputText>
+				
+							<h:outputLabel for="password" value="Password: " />
+							<p:password id="password"
+								value="#{registrationBean.desiredPassword}" feedback="true" />
+
+						</h:panelGrid>
+					</p:panel>
+
+					<p:spacer height="10" />
+					<p:separator />
+					<p:messages id="messages" showDetail="true" autoUpdate="true" >
+								<p:message for="email" display="tooltip" />
+					</p:messages>
+
+					<p:commandButton update="matchGrid" value="Register"
+						icon="ui-icon-check" ajax="false" validateClient="true"
+						action="#{registrationBean.registerUser}" />
+				</h:form>
+			</f:view>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

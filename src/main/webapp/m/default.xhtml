@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<!-- @see
+	https://www.javacodegeeks.com/2014/11/getting-started-with-primefaces-mobile.html
+ -->
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pm="http://primefaces.org/mobile">
+<f:view renderKitId="PRIMEFACES_MOBILE">
+<h:head></h:head>
+	<h:body>
+	<ui:composition template="/WEB-INF/includes/m/template.xhtml">
+        <ui:define name="menu">
+            <ui:include src="/WEB-INF/includes/m/menu.xhtml" />
+        </ui:define>
+        <ui:define name="main_box">
+        	<p:panel header=" #{empty request.remoteUser ? '' : ('Hello '.concat (request.remoteUser).concat('!'))} Welcome to I am Ok, You Are OK">
+	        	<h:graphicImage value="/images/ok_hands.jpg"/>
+			</p:panel>
+         </ui:define>
+	 </ui:composition>
+</h:body>
+</f:view>
+</html>

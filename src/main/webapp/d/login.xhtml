@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:p="http://primefaces.org/ui">
+<h:body>
+	<ui:composition template="/WEB-INF/includes/d/template.xhtml">
+		<ui:define name="menu">
+			<ui:include src="/WEB-INF/includes/d/menu.xhtml" />
+		</ui:define>
+		<ui:define name="main_box">
+		<f:view>
+			<h:form>
+				<p:growl showDetail="true"/>
+				
+				<p:panel header = "Log In">
+					<h:panelGrid columns="2"  id="matchGrid" cellpadding="5">
+						<h:outputLabel value="Username or E-Mail " />
+						<p:inputText id="username" value="#{loginBean.login}" />
+						
+						<h:outputLabel value="Password: " />
+						<p:password id="password" value="#{loginBean.password}"/>
+						
+						<h:commandButton styleClass="btn btn-primary" value="Mit Facebook anmelden" rendered="#{!auth.connected}" action="#{socialLoginBean.doFacebookLogin()}" />
+                		<h:commandButton styleClass="btn btn-primary" value="Facebook abmelden" rendered="#{auth.connected}" action="#{socialLoginBean.logout()}" />
+					</h:panelGrid>
+				</p:panel>
+				
+				<p:spacer height="10" />
+				<p:separator />
+				<p:messages id="messages" showDetail="true" autoUpdate="true" />
+		
+				<p:commandButton update="matchGrid" value="Log In" icon = "ui-icon-check" ajax = "false" validateClient="true" action = "#{loginBean.login}"/>
+				
+				
+				<!-- <input type="hidden" name="originalURL" value="#{loginBean.originalURL}"/>  -->
+				</h:form>	
+			</f:view>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:p="http://primefaces.org/ui">
+<h:body>
+	<ui:composition template="/WEB-INF/includes/d/template.xhtml">
+	<ui:define name="menu">
+		<ui:include src="/WEB-INF/includes/d/menu.xhtml" />
+	</ui:define>
+	<ui:define name="main_box">
+		<h:form>
+			<p:growl showDetail="true" />
+			<p:panel header="New Challenge">
+
+				<h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
+					<p:outputLabel for="challengeName" value="Name:" />
+					<p:inputText id="challengeName" value="#{challengeBean.name}" />
+
+					<p:outputLabel for="challengeDescr" value="Descr:" />
+					<p:outputPanel>
+						<p:inputTextarea id="challengeDescr" rows="5" cols="30"
+							counter="challengeDescrDisplay" maxlength="255"
+							value="#{challengeBean.description}"
+							counterTemplate="{0} characters remaining." autoResize="false" />
+						<p />
+						<h:outputText id="challengeDescrDisplay" />
+					</p:outputPanel>
+
+					<p:outputLabel for="challengeCategory" value="Select a category:" />
+					<p:selectOneMenu id="challengeCategory"
+						value="#{challengeBean.category}">
+						<f:selectItems value="#{challengeBean.categoryValues}" />
+					</p:selectOneMenu>
+
+					<p:outputLabel for="challengeLevel" value="Select a level:" />
+					<p:selectOneMenu id="challengeLevel" value="#{challengeBean.level}">
+						<f:selectItems value="#{challengeBean.levelValues}" />
+					</p:selectOneMenu>
+
+				</h:panelGrid>
+			</p:panel>
+
+			<p:spacer height="10" />
+			<p:separator />
+			<p:messages id="messages" showDetail="true" autoUpdate="true" />
+
+			<p:commandButton value="Create" icon="ui-icon-check"
+				action="#{challengeBean.createChallenge}" />
+
+		</h:form>
+		</ui:define>
+		</ui:composition>
+</h:body>
+</html>

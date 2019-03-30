@@ -1,0 +1,129 @@
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+                    http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+                    version="3.0">
+
+	<context-param>
+		<param-name>primefaces.CLIENT_SIDE_VALIDATION</param-name>
+		<param-value>true</param-value>
+	</context-param>
+	
+	<!-- Prime Faces JSF mapping
+	
+	<filter>
+		<filter-name>primeFacesFileUploadFilter</filter-name>
+		<filter-class>org.primefaces.webapp.filter.FileUploadFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>primeFacesFileUploadFilter</filter-name>
+		<servlet-name>Faces Servlet</servlet-name>
+	</filter-mapping>  -->
+	
+	
+	<!-- JSF mapping -->
+	<servlet>
+		<servlet-name>Faces Servlet</servlet-name>
+		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet>
+        <servlet-name>SocialServlet</servlet-name>	
+       	<servlet-class>de.kevcodez.servlet.SocialLoginServlet</servlet-class>		
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SocialServlet</servlet-name>
+       	<url-pattern>/socialLogin</url-pattern>
+    </servlet-mapping>
+
+	<!-- Map these files with JSF  -->
+	<servlet-mapping>
+		<servlet-name>Faces Servlet</servlet-name>
+		<url-pattern>/d/pages/faces/*</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Faces Servlet</servlet-name>
+		<url-pattern>/m/pages/faces/*</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Faces Servlet</servlet-name>
+		<url-pattern>*.jsf</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Faces Servlet</servlet-name>
+		<url-pattern>*.faces</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Faces Servlet</servlet-name>
+		<url-pattern>*.xhtml</url-pattern>
+	</servlet-mapping>
+
+<!--  MIME Mapping, see http://stackoverflow.com/questions/21587417/warning-jsf1091-no-mime-type-could-be-found-for-file-qcformdean-jsp-but-wait  
+	<mime-mapping>
+	    <extension>xhtml</extension>
+	    <mime-type>application/xml</mime-type>
+	</mime-mapping>
+	
+	<mime-mapping>
+	    <extension>jsp</extension>
+	    <mime-type>application/xml</mime-type>
+	</mime-mapping>  
+	
+	<mime-mapping>
+	    <extension>jsp{or the extension of file}</extension>
+	    <mime-type>text/html</mime-type>
+  	</mime-mapping> -->
+  	
+	<!-- Welcome page -->
+	<welcome-file-list>
+		<welcome-file>/d/default.xhtml</welcome-file>
+	</welcome-file-list>
+
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>All resources in /d/pages/edit*</web-resource-name>
+			<description>All resources in /pages/*</description>
+			<url-pattern>/d/pages/edit/*</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>general</role-name>
+		</auth-constraint>
+	</security-constraint>
+	
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>All resources in /m/pages/edit/*</web-resource-name>
+			<description>All resources in  /m/pages/edit/*</description>
+			<url-pattern>/m/pages/edit/*</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>general</role-name>
+		</auth-constraint>
+	</security-constraint>
+
+	<security-constraint>
+		<display-name>Restrict direct access to the /resources folder.</display-name>
+		<web-resource-collection>
+			<web-resource-name>The /resources folder.</web-resource-name>
+			<url-pattern>/resources/*</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>general</role-name>
+		</auth-constraint>
+	</security-constraint>
+
+	<login-config>
+		<auth-method>FORM</auth-method>
+		<realm-name>jBossJaasMysqlRealm</realm-name>
+		<form-login-config>
+			<form-login-page>/d/login.jsf</form-login-page>
+			<form-error-page>/d/loginFailed.jsf</form-error-page>
+		</form-login-config>
+	</login-config>
+
+	<security-role>
+		<role-name>general</role-name>
+	</security-role>
+
+
+</web-app>

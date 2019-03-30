@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:fb="http://www.facebook.com/2008/fbml"
+	>
+<h:body>
+	<ui:composition template="/WEB-INF/includes/d/template.xhtml">
+		<ui:define name="menu">
+			<ui:include src="/WEB-INF/includes/d/menu.xhtml" />
+		</ui:define>
+		<ui:define name="main_box">
+		    <script type="text/javascript">
+				jQuery(document).ready(function () {
+				    jQuery(document).ready(function () {
+				        // twice in document.ready to execute after Primefaces callbacks
+				        // @see http://stackoverflow.com/questions/8996316/how-to-execute-javascript-after-page-load
+			        	var ogUrl=document.getElementById("ogUrl");
+			        	ogUrl.content = ogUrl.content + "pages/assignments.jsf";
+				    });
+				});
+		    </script>
+			<!-- Load Facebook SDK for JavaScript -->
+			<div id="fb-root"></div>
+			<h:outputScript library="js" name="facebook.js" /> 
+				
+			<h:form id="form">
+				<p:growl id="growl" life="2000" />
+				<c:choose>
+					<c:when test="#{allAssignmentsBean.myAssignmentsOnly}">
+   						<c:set var="whoseAssignments" scope="view" value="My"/>
+					</c:when>
+					<c:otherwise>
+   						<c:set var="whoseAssignments" scope="view" value="All"/>
+				    </c:otherwise>
+				</c:choose>	
+				<c:if test="#{not empty allAssignmentsBean.filterAssignmentByChallenge}">
+	   				<c:set var="assignmentsForChallenge" scope="view" value=" for challenge #{allAssignmentsBean.filterAssignmentByChallenge.name}"/>
+				</c:if>
+				<p:panel header="${whoseAssignments} assignments ${assignmentsForChallenge}" />
+				<p:dataTable id="assignmentsTable" var="assignment"
+					value="#{allAssignmentsBean.dataModel}" paginator="true" rows="10"
+					paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+					resizableColumns="true" 
+					rowsPerPageTemplate="5,10,15"
+					selection="#{allAssignmentsBean.selectedAssignment}"
+					selectionMode="single"
+					rowKey="#{assignment.id}" lazy="true">
+					<p:ajax event="rowSelect" listener="#{allAssignmentsBean.onRowSelect}" update=":form" />
+					<p:column headerText="Id" style="width:32px;text-align:center"
+						sortBy="#{assignment.id}" filterBy="#{assignment.id}">
+						<h:outputText value="#{assignment.id}" />
+					</p:column>
+					<p:column headerText="Name" sortBy="#{assignment.challenge.name}"
+						filterBy="#{assignment.challenge.name}">
+						<h:outputText value="#{assignment.challenge.name}" />
+					</p:column>
+					<p:column headerText="User"
+						sortBy="#{assignment.assignedTo.username}"
+						filterBy="#{assignment.assignedTo.username}"
+						visible="#{!allAssignmentsBean.myAssignmentsOnly}">
+						<h:outputText value="#{assignment.assignedTo.username}" />
+					</p:column>
+					<p:column headerText="Status" sortBy="#{assignment.status}"
+						filterBy="#{assignment.status}">
+						<h:outputText value="#{assignment.status}" />
+					</p:column>
+					<p:column headerText="Picture">
+						<p:graphicImage id="graphicImage" width = "50" height="50" value="#{imagesBean.uploadedFileAsStream}">
+				 	 		<f:param name="fileId" value="#{assignment.lastFilePath}" />
+						</p:graphicImage>
+					</p:column>
+					<p:column headerText="Due Date" sortBy="#{assignment.dateDue}"
+						filterBy="#{assignment.dateDue}">
+						<h:outputText value="#{assignment.dateDue}" />
+					</p:column>
+					 
+				<!--  <p:column headerText="Level" sortBy="#{assignment.challenge.level}"
+					filterBy="#{assignment.challenge.level}">
+					<h:outputText value="#{assignment.challenge.level}" />
+				</p:column>
+				<p:column headerText="Description"
+					sortBy="#{assignment.challenge.level}"
+					filterBy="#{assignment.challenge.level}">
+					<h:outputText value="#{assignment.challenge.descriptionShort}" />
+				</p:column> !-->
+					<f:facet name="footer">
+						<p:commandButton id="viewAssignmentHistory" process="assignmentsTable" update=":form:growl"
+							icon="ui-icon-search" value="View History"
+							action="#{allAssignmentsBean.processButton('viewAssignmentHistory')}" ajax="false"/>
+	
+						<p:commandButton id="editAssignment" process="assignmentsTable" update=":form:growl"
+							icon="ui-icon-search" value="Edit"
+							rendered = "#{not empty allAssignmentsBean.selectedAssignment and allAssignmentsBean.selectedAssignment.assignedTo.id == userId}"
+							actionListener="#{allAssignmentsBean.editChallengeable}" ajax="true">
+							<f:param name="assId" value="#{assignment.id}" />
+						</p:commandButton>
+					</f:facet>
+					
+				</p:dataTable>
+
+
+			<!-- 	<p:dialog header="Assignment Detail" widgetVar="assignmentDialog"
+					modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+					<p:outputPanel id="assignmentDetail" style="text-align:center;">
+						<p:panelGrid columns="2"
+							rendered="#{not empty allAssignmentsBean.selectedAssignment}"
+							columnClasses="label,value">
+							<h:outputText value="Id:" />
+							<h:outputText value="#{allAssignmentsBean.selectedAssignment.id}" />
+
+							<h:outputText value="Name:" />
+							<h:outputText
+								value="#{allAssignmentsBean.selectedAssignment.challenge.name}" />
+
+							<h:outputText value="Description:" />
+							<h:outputText
+								value="#{allAssignmentsBean.selectedAssignment.challenge.description}" />
+
+						</p:panelGrid>
+					</p:outputPanel>
+				</p:dialog>  -->
+				
+				<!-- Your share button code -->
+				<div id="fb-share-button" class="fb-share-button" 
+					data-href="http://localhost:8080/IamOKYouAreOK/pages/assignments.jsf" 
+					data-layout="button_count">
+				</div>
+	
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:p="http://primefaces.org/ui"
+        xmlns:c="http://java.sun.com/jsp/jstl/core"
+        xmlns:fb="http://www.facebook.com/2008/fbml"
+        >     
+<h:body>
+	<ui:composition template="/WEB-INF/includes/d/template.xhtml">
+		<ui:define name="menu">
+			<ui:include src="/WEB-INF/includes/d/menu.xhtml" />
+		</ui:define>
+		<ui:define name="main_box">
+		<!-- Load Facebook SDK for JavaScript -->
+		<div id="fb-root"></div>
+		<c:if test="${assignmentBean.assignmentNotExist}">
+			No Assignment / Challenge found
+		</c:if>
+		<c:if test="${!assignmentBean.assignmentNotExist}">
+			<h:form  enctype="multipart/form-data">
+				<p:growl showDetail="true"/>
+				<p:panel header = "Create Or Edit Assignment">
+			
+				<h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
+					<p:outputLabel for="challengeName" value="Challenge Name:" />
+					<p:inputText id="challengeName" value="#{assignmentBean.challenge.name}" 
+								 disabled="true"
+								 maxlength = "30"/>
+					
+					<p:outputLabel for="challengeDescr" value="Challenge Descr:" />
+					<p:outputPanel>
+						<p:inputTextarea  id="challengeDescr" rows="5" cols="30" counter="challengeDescrDisplay" maxlength="255"
+										  value="#{assignmentBean.challenge.description}" counterTemplate="{0} characters remaining." 
+										  autoResize="true" disabled="#{true}"/>
+	    				<p/>
+	    				<h:outputText id="challengeDescrDisplay" rendered="false" />
+	    			</p:outputPanel>
+	    			
+	    			<p:outputLabel for="challengeCategory" value="Challenge category:" />
+					<p:selectOneMenu id="challengeCategory" value="#{assignmentBean.category}" disabled="true">
+						<f:selectItems value="#{assignmentBean.categoryValues}"  itemDisabled="true"/>
+					</p:selectOneMenu>
+					
+					<p:outputLabel for="challengeLevel" value="Challenge level:" />
+					<p:selectOneMenu id="challengeLevel" value="#{assignmentBean.level}" disabled="true">
+						<f:selectItems value="#{assignmentBean.levelValues}" itemDisabled="true"/>
+					</p:selectOneMenu>
+					
+					 <p:outputLabel for="user" value="Assigned To:" />
+	       			 <h:outputText id="user" value="#{assignmentBean.assignedTo.username}" />
+	       			 
+	       			 <p:outputLabel for="status" value="Status " rendered = "#{assignmentBean.existing}" />
+	       			 <p:selectOneMenu id="status" value="#{assignmentBean.status}" rendered="#{assignmentBean.existing}">
+						<f:selectItems value="#{assignmentBean.statusValues}"/>
+					</p:selectOneMenu>
+					
+					 <p:outputLabel for="dueDate" value="Due Date:" />
+	       			 <p:calendar id="dueDate" value="#{assignmentBean.dueDate}" converter="dateConverter" locale="en" navigator="true" pattern="dd-MMM-yyyy" />
+	       			 
+	       			 
+	       			 <p:outputLabel for="fileUploader" value="Upload Picture:" />
+	       			 <p:fileUpload  id="fileUploader" fileUploadListener="#{assignmentBean.upload}" auto="true" dragDropSupport="true" update="graphicImage"
+	       			 			   sizeLimit="10000000" fileLimit="3" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" rendered="#{assignmentBean.existing}">
+	       			 </p:fileUpload>
+ 
+				</h:panelGrid>
+				</p:panel>
+				
+				<p:graphicImage id="graphicImage" width = "50" height="50" value="#{imagesBean.uploadedFileAsStream}">
+				 	 <f:param name="fileId" value="#{assignmentBean.fileId}" />
+				</p:graphicImage>
+	 	
+				<p:spacer height="10" />
+				<p:separator />
+				<p:messages id="messages" showDetail="true" autoUpdate="true" />
+			
+				<p:commandButton  type="submit" value="Modify Assignment" icon="ui-icon-check"
+					action="#{assignmentBean.modifyAssignment}" rendered="#{assignmentBean.existing}"/>
+				<p:commandButton  type="submit" value="Create Assignment" icon="ui-icon-check"
+					action="#{assignmentBean.modifyAssignment}" rendered="#{!assignmentBean.existing}" />
+					
+			<input type="hidden" name="assId" value="#{assignmentBean.assId}"/>
+			<input type="hidden" name="challId" value="#{assignmentBean.challId}"/>
+			
+			<!-- Your share button code -->
+			<div id="fb-share-button" class="fb-share-button" 
+				data-href="http://10.0.0.2:8080/IamOKYouAreOK/pages/assignment.jsf?assId=#{assignmentBean.assId}" 
+				data-layout="button_count">
+			</div>
+			
+			
+			</h:form>
+			</c:if>
+			
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

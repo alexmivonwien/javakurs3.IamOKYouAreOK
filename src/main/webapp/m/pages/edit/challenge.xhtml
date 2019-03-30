@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:p="http://primefaces.org/ui">
+<h:body>
+	<ui:composition template="/WEB-INF/includes/m/template.xhtml">
+		<ui:define name="menu">
+			<ui:include src="/WEB-INF/includes/m/menu.xhtml" />
+		</ui:define>
+		<ui:define name="main_box">
+			<ui:include src="/WEB-INF/includes/challenge.xhtml" />
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

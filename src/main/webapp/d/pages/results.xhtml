@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+<h:body>
+	<ui:composition template="/WEB-INF/includes/d/template.xhtml">
+		<ui:define name="menu">
+			<ui:include src="/WEB-INF/includes/d/menu.xhtml" />
+		</ui:define>
+		<ui:define name="main_box">
+			<h:form id="form">
+				<p:growl id="growl" life="2000" />
+				<c:choose>
+					<c:when test="#{allResultsBean.myResultsOnly}">
+   						<c:set var="whoseResults" scope="view" value="My"/>
+					</c:when>
+					<c:otherwise>
+   						<c:set var="whoseResults" scope="view" value="All"/>
+				    </c:otherwise>
+				</c:choose>	
+				<c:if test="#{not empty allResultsBean.filterResultsByChallenge}">
+	   				<c:set var="resultsForChallenge" scope="view" value=" for challenge #{allResultsBean.filterResultsByChallenge.name}"/>
+				</c:if>
+				<p:panel header="${whoseAssignments} results ${resultsForChallenge}" />
+				<p:dataTable id="resultsTable" var="result"
+					value="#{allResultsBean.dataModel}" paginator="true" rows="10"
+					paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+					resizableColumns="true" 
+					rowsPerPageTemplate="5,10,15"
+					selection="#{allResultsBean.selectedResult}"
+					selectionMode="single"
+					rowKey="#{result.id}" lazy="true">
+					<p:ajax event="rowSelect" listener="#{allResultsBean.onRowSelect}" update=":form" />
+					<p:column headerText="Id" style="width:32px;text-align:center"
+						sortBy="#{result.id}" filterBy="#{result.id}">
+						<h:outputText value="#{result.id}" />
+					</p:column>
+					<p:column headerText="Name" sortBy="#{result.challenge.name}"
+						filterBy="#{result.challenge.name}">
+						<h:outputText value="#{result.challenge.name}" />
+					</p:column>
+					<p:column headerText="User"
+						sortBy="#{result.ofUser.username}"
+						filterBy="#{result.ofUser.username}"
+						visible="#{!allResultsBean.myResultsOnly}">
+						<!--  <h:outputText value="#{result.ofUser.username}" /> -->
+					</p:column>
+					<p:column headerText="Picture">
+						<p:graphicImage id="graphicImage" width = "50" height="50" value="#{imagesBean.uploadedFileAsStream}">
+				 	 		<f:param name="fileId" value="#{result.filePath}" />
+						</p:graphicImage>
+					</p:column>
+					<p:column headerText="Date Completed" sortBy="#{result.dateCompleted}"
+						filterBy="#{result.dateCompleted}">
+						<h:outputText value="#{result.dateCompleted}" />
+					</p:column>
+				</p:dataTable>
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

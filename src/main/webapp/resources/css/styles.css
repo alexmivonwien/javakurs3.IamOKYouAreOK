@@ -1,0 +1,112 @@
+/** Resource:
+	http://stackoverflow.com/questions/29979355/how-do-i-align-my-css-drop-down-menu-in-the-center
+**/
+
+.dropdownmenu {
+	padding-top: 1em;
+	padding-bottom: 5em;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.dropdownmenu ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	text-align: center;
+}
+
+.dropdownmenu ul li {
+	position: relative;
+	display: inline-block;
+    width: 200px;
+    line-height: 30px;
+	
+	font-weight: bold;
+	font-size: 16px;
+	font-family: Arial, Helvetica;
+
+	/**	-- below properties are taken from prime faces datatable css **/
+  /*	padding: 4px 10px;
+  	overflow: hidden; **/
+    border-width: 1px;
+    border-style: solid;
+    background-color: rgba(194,194,194,.5);
+}
+
+.dropdownmenu ul li.topmenu a {
+	display: block;
+	text-decoration: none;
+}
+
+.dropdownmenu ul li.topmenu a:hover {
+	background-color: #AACADB;
+}
+
+.dropdownmenu .topmenu ul {
+	position: absolute;	
+	top: 100%;
+    left: 50%;
+    margin-left: -101px; /** for negative margins, see http://stackoverflow.com/questions/11495200/how-do-negative-margins-in-css-work-and-why-is-margin-top-5-margin-bottom5 **/
+    display: none;
+}
+
+.dropdownmenu ul li:hover ul {
+	display: block;
+}
+
+
+table.videoResults {
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#progress_bar {
+	margin: 10px 0;
+	padding: 3px;
+	border: 1px solid #000;
+	font-size: 14px;
+	clear: both;
+	opacity: 0;
+	-moz-transition: opacity 1s linear;
+	-o-transition: opacity 1s linear;
+	-webkit-transition: opacity 1s linear;
+}
+
+#progress_bar.loading {
+	opacity: 1.0;
+}
+
+#progress_bar .percent {
+	background-color: #99ccff;
+	height: auto;
+	width: 0;
+}
+
+#footer {
+	padding-top: 10em;
+	position: relative;
+}
+
+#footer p {
+	text-align: center;
+	font-size: 12px;
+	font-weight: bold;
+	font-family: Arial, Helvetica;
+}
+
+
+h2 {
+	color: #440000;
+	font-weight: bold;
+	font-size: 18px;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+<!-- Primefaces p:fileUpload text size  is changed by applying inputField styleClass. 
+see
+http://stackoverflow.com/questions/15272723/how-do-i-change-the-size-of-pfileupload
+-->
+.inputField {
+   width: 550px !important;
+}
