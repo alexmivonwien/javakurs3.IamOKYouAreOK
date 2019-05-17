@@ -122,7 +122,15 @@ public class LoginBean {
 				
 			} else {
 				
-				String redirectURL = getOriginalURL()  + "?faces-redirect=true&" + NavigationUtils.getOriginalQueryString(request);
+				String originalURL = getOriginalURL();
+				int indexOfsq = -1;
+				String requestParameters = StringUtils.EMPTY;
+				if ((indexOfsq = originalURL.indexOf(";")) != -1) { //originalURL contains request parameters, i.e. browser session via URL rewriting
+					requestParameters = originalURL.substring(indexOfsq, originalURL.length());							
+					originalURL = originalURL.substring(0, indexOfsq);					
+				}
+				
+				String redirectURL = originalURL  + "?faces-redirect=true&" + NavigationUtils.getOriginalQueryString(request) + requestParameters;
 				
 				return redirectURL;
 			}
