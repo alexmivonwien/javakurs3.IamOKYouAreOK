@@ -15,6 +15,21 @@ import at.alex.ok.services.UserService;
 
 
 
+/**
+ *  ServiceLocator vs DepenencyInjection,
+ * 
+ * @see https://stackoverflow.com/questions/6291331/service-locator-vs-dependency-injection
+ * 
+ * @author Baby
+ * 
+ * The choice between Service Locator and Dependency Injection is less important than the principle of separating service configuration from 
+ * the use of services within an application.
+ * 
+ * There's nothing "wrong" as such with the service locator pattern,
+ * In this particular case, the one major argument in favor of DI would be testability.
+ * Without a doubt, DI allows for better unit testing. The static getInstance method on Locator makes it more difficult to test in isolation.
+ *
+ */
 public class ServiceLocator {
 
 	private Logger logger = Logger.getLogger(ServiceLocator.class);
@@ -43,7 +58,7 @@ public class ServiceLocator {
 					.lookup("java:app/IamOKYouAreOK/ChallengeServiceImpl!at.alex.ok.services.ChallengeService");
 		
 			
-			DataSource dataSource = (DataSource)ctx.lookup("java:/MySqlDS_IamOK");
+			DataSource dataSource = (DataSource)ctx.lookup("java:jboss/datasources/ExampleDS");
 			
 			serviceHolder.put(USER_SERVICE, userService);
 			serviceHolder.put(CHALLENGE_SERVICE, challengeService);
