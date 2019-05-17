@@ -14,6 +14,7 @@ SET SQL_SAFE_UPDATES = 0;
 -- drop table if exists assignment_history;
 -- drop table if exists assignment;
 -- drop table if exists challenge;
+
 drop table if exists user_role;
 
 create table user_role (
@@ -25,9 +26,9 @@ create table user_role (
 delete from user;
 delete from role;
 
-insert into user (id, username, password) values (1, 'gepi', 'pepi');
-insert into user (id, username, password) values (2, 'gama', 'mia');
-insert into user (id, username, password) values (3, 'lele', 'male');
+insert into user (id, username, password) values (1, 'gepi', 'BEsQhfKl4Ifu8TDUNPDdig=='); -- pepi
+insert into user (id, username, password) values (2, 'gama', 'UQLs09R/ZWHecJeQF7h6gA=='); -- mia
+insert into user (id, username, password) values (3, 'lele', 'B89Pj12LdigpFzIHFd2irQ=='); -- male
 
 
 insert into role (id, name, description) values (1, 'Administrator', 'Administrator Role');

@@ -13,6 +13,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import org.jboss.crypto.CryptoUtil;
+import org.jboss.security.Util;
+
 import at.alex.ok.model.Role;
 import at.alex.ok.model.User;
 import at.alex.ok.model.UserRole;
@@ -51,12 +54,21 @@ public class UserServiceImpl implements UserService {
 	}
 
 
+	/**
+	 * password encryption
+	 * @see https://developer.jboss.org/thread/242747
+	 * 
+	 */
 	@Override
 	public void registerUser(User user, Set<RoleType> roles) throws UserAlreadyExistsException{
 		
 		if (findByUsernameOrEmail (user.getUsername(), user.getEmail())!=null){
 			throw new UserAlreadyExistsException();
 		}
+		
+		// password encryption, @see https://developer.jboss.org/thread/242747
+		String hashedPassword = CryptoUtil.createPasswordHash("MD5", "base64", "UTF-8", null, user.getPassword());
+		user.setPassword(hashedPassword);
 		
 		this.em.persist(user);
 		

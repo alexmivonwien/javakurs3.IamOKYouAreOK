@@ -421,6 +421,9 @@
                     <authentication>
                         <login-module code="org.jboss.security.auth.spi.DatabaseServerLoginModule" flag="required">
                             <module-option name="dsJndiName" value="java:/MySqlDS_IamOK"/>
+							<module-option name="hashAlgorithm" value="MD5"/>
+							<module-option name="hashEncoding" value="base64"/>
+							<module-option name="hashCharset" value="UTF-8"/>
                             <module-option name="principalsQuery" value="select password from user where username=?"/>
                             <module-option name="rolesQuery" value="select r.name, 'Roles' from user u, role r, user_role ur where  u.id = ur.user_id and ur.role_id = r.id and u.username =?"/>
                         </login-module>
