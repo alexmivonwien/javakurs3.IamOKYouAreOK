@@ -196,6 +196,31 @@
                         <share-prepared-statements>true</share-prepared-statements>
                     </statement>
                 </datasource>
+                <datasource jta="true" jndi-name="java:/javakurs3-cinema" pool-name="MySqlDS_cinema" enabled="true" use-java-context="true" use-ccm="true">
+                    <connection-url>jdbc:mysql://localhost:3306/cinema</connection-url>
+                    <driver>mysql</driver>
+                    <transaction-isolation>TRANSACTION_READ_COMMITTED</transaction-isolation>
+                    <pool>
+                        <min-pool-size>10</min-pool-size>
+                        <max-pool-size>100</max-pool-size>
+                        <prefill>true</prefill>
+                    </pool>
+                    <security>
+                        <user-name>cinemauser</user-name>
+                        <password>cinema123</password>
+                    </security>
+                    <validation>
+                        <check-valid-connection-sql>SELECT 1</check-valid-connection-sql>
+                    </validation>
+                    <timeout>
+                        <idle-timeout-minutes>0</idle-timeout-minutes>
+                        <query-timeout>600</query-timeout>
+                    </timeout>
+                    <statement>
+                        <prepared-statement-cache-size>100</prepared-statement-cache-size>
+                        <share-prepared-statements>true</share-prepared-statements>
+                    </statement>
+                </datasource>
                 <datasource jta="true" jndi-name="java:/javakurs-bibliothek" pool-name="javakurs-bibl" enabled="true" use-java-context="true" use-ccm="true">
                     <connection-url>jdbc:mysql://localhost:3306/bibliothek</connection-url>
                     <driver>mysql</driver>
@@ -396,8 +421,17 @@
                     <authentication>
                         <login-module code="org.jboss.security.auth.spi.DatabaseServerLoginModule" flag="required">
                             <module-option name="dsJndiName" value="java:/MySqlDS_IamOK"/>
+                            <module-option name="principalsQuery" value="select password from user where username=?"/>
+                            <module-option name="rolesQuery" value="select r.name, 'Roles' from user u, role r, user_role ur where  u.id = ur.user_id and ur.role_id = r.id and u.username =?"/>
+                        </login-module>
+                    </authentication>
+                </security-domain>
+                <security-domain name="jBossJaasBibliothekRealm" cache-type="default">
+                    <authentication>
+                        <login-module code="org.jboss.security.auth.spi.DatabaseServerLoginModule" flag="required">
+                            <module-option name="dsJndiName" value="java:/javakurs-bibliothek"/>
                             <module-option name="principalsQuery" value="select password from  user where username=?"/>
-                            <module-option name="rolesQuery" value="select role, 'Roles' from  user_role where  username=?"/>
+                            <module-option name="rolesQuery" value="select r.name, 'Roles' from user u, role r, user_role ur where  u.id = ur.user_id and ur.role_id = r.id and u.username =?"/>
                         </login-module>
                     </authentication>
                 </security-domain>
@@ -448,10 +482,10 @@
 
     <interfaces>
         <interface name="management">
-            <inet-address value="${jboss.bind.address.management:127.0.0.1}"/>
+            <any-address/>
         </interface>
         <interface name="public">
-            <inet-address value="${jboss.bind.address:127.0.0.1}"/>
+            <any-address/>
         </interface>
         <interface name="unsecure">
             <inet-address value="${jboss.bind.address.unsecure:127.0.0.1}"/>

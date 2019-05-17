@@ -36,7 +36,7 @@ public class ChallengeServiceImpl implements ChallengeService {
 	@PersistenceContext
 	private EntityManager em;
 
-	//@Override
+	@Override
 	public void createChallenge(List<Challenge> challenges) {
 
 		for (Challenge challenge: challenges){
@@ -44,7 +44,7 @@ public class ChallengeServiceImpl implements ChallengeService {
 		}
 	}
 	
-	//@Override
+	@Override
 	public <T> List< ? extends Challengeable> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String,Object> filters, Class <? extends Challengeable> clazz){
 
 		final String sqlQuery = " from " + clazz.getSimpleName() + " c  " + composeWhereClause(filters) + composeOrderClause(sortField, sortOrder);
@@ -101,7 +101,7 @@ public class ChallengeServiceImpl implements ChallengeService {
 	};
     
 		
-	//@Override
+	@Override
 	public Result createOrUpdateAssignment(Assignment modifiedAssignment) {
 		
 		Assignment existingAssignment = null;
@@ -213,7 +213,7 @@ public class ChallengeServiceImpl implements ChallengeService {
 		return assignment;
 	}
 	
-	//@Override
+	@Override
 	public Assignment findAssignmentBy(User user, Challenge challenge){
 		
 		if (user ==null || challenge == null)

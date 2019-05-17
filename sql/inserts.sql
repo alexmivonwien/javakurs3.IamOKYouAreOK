@@ -19,8 +19,6 @@ drop table if exists user_role;
 create table user_role (
 	user_id int(11),
 	role_id int (11),
-	username varchar (255),
-	role varchar (255),
 	primary key (user_id , role_id)
 );
 
@@ -37,12 +35,11 @@ insert into role (id, name, description) values (2, 'general', 'General Role');
 insert into role (id, name, description) values (3, 'Moderator', 'Moderator Role');
 
 
-insert into user_role values (1, 1, 'gepi', 'Administrator');
-insert into user_role values (1, 2, 'gepi', 'general');
-insert into user_role values (1, 3, 'gepi', 'Moderator');
+insert into user_role values (1, 1);
+insert into user_role values (1, 2);
+insert into user_role values (1, 3);
 
-insert into user_role values (2, 2, 'mama', 'general');
-
-insert into user_role values (3, 2, 'lele', 'general');
+insert into user_role values (2, 2);
+insert into user_role values (3, 2);
 
 commit;

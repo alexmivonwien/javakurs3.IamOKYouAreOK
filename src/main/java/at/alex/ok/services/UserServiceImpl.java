@@ -1,6 +1,7 @@
 package at.alex.ok.services;
 
 import java.util.HashSet;
+
 import java.util.List;
 import java.util.Set;
 
@@ -46,13 +47,11 @@ public class UserServiceImpl implements UserService {
 
 
 		registerUser(newUser, roleTypes);
-		
 		return newUser;
-	
 	}
 
 
-	//@Override
+	@Override
 	public void registerUser(User user, Set<RoleType> roles) throws UserAlreadyExistsException{
 		
 		if (findByUsernameOrEmail (user.getUsername(), user.getEmail())!=null){
@@ -65,10 +64,7 @@ public class UserServiceImpl implements UserService {
 		
 		for (Role role : userRoles){
 			UserRole userRole = new UserRole();
-			userRole.setUsername(user.getUsername());
 			userRole.setUser_id(user.getId());
-			
-			userRole.setRole(role.getName());
 			userRole.setRole_id(role.getId());
 			
 			this.em.persist(userRole);
@@ -77,7 +73,7 @@ public class UserServiceImpl implements UserService {
 	};
 
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
-	//@Override
+	@Override
 	public Set<Role> findRoles(Set<RoleType> roleTypes) {
 
 		if (roleTypes == null || roleTypes.size() == 0) {
@@ -107,13 +103,13 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
-	//@Override
+	@Override
 	public List<User> getAllUsers() {
 		Query query = this.em.createQuery(" from User u");
 		return query.getResultList();
 	}
 
-	//@Override
+	@Override
 	public User findByUsernameOrEmail (String username, String email)
 	{
 		
