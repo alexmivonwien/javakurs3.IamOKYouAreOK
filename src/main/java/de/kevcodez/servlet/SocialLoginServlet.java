@@ -89,7 +89,7 @@ public class SocialLoginServlet extends HttpServlet {
 				if (user!=null){
 					// 2.) Log the user in:
 					//req.login(user.getUsername(), user.getPassword());
-					LoginBean.loginUserAndSetUserIdSessionAttribute(req, user.getUsername(), user.getPassword(), user);
+					LoginBean.loginUserAndSetUserIdSessionAttribute(req, user.getUsername(), User.DEFAULT_FB_PASSWORD, user);
 				}
 				
 			} catch (Exception e) {

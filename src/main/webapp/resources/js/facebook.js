@@ -3,7 +3,7 @@
   var js, fjs = d.getElementsByTagName(s)[0];
   if (d.getElementById(id)) return;
   js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=248175172251251&version=v2.8";
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=336112207106076&version=v3.2";
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));
 

@@ -21,7 +21,6 @@
 		    </releases>
 		</repository>  -->
 	</repositories>
-
 	<dependencies>
 		<dependency>
 		  <groupId>org.brickred</groupId>
