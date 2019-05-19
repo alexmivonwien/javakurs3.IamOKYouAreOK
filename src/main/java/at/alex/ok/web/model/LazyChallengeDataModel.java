@@ -42,9 +42,10 @@ public class LazyChallengeDataModel extends LazyDataModel<Challenge> {
     public List<Challenge> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String,Object> filters) {
     	
     	List result =  this.challengeService.load(first, pageSize, "id", sortOrder, filters, Challenge.class);
+    	int resultSize = (int)this.challengeService.totalCount(filters, Challenge.class);
     	
     	//rowCount
-        this.setRowCount(result.size());
+        this.setRowCount(resultSize);
     	
     	return result;
     }

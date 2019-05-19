@@ -57,6 +57,16 @@ public class ChallengeServiceImpl implements ChallengeService {
 		return challengeList;
 	};
 	
+	@Override
+	public long totalCount(Map<String,Object> filters, Class <? extends Challengeable> clazz){
+
+		final String jpaQuery = " select count(*) from " + clazz.getSimpleName() + " c  " + composeWhereClause(filters);
+		Query query = this.em.createQuery(jpaQuery);
+		
+		List<Long> challengeList =  query.getResultList();
+		return challengeList.size() > 0 ? challengeList.get(0) : 0;
+	};
+	
 	
 	private String composeWhereClause (Map<String,Object> filters){
 		

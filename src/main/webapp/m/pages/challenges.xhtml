@@ -16,7 +16,7 @@
 					<p:growl id="growl" life="2000" />
 					<p:panel header="All challenges" />
 					<p:dataTable id="challengeTable" var="challenge"
-						value="#{allChallengesBean.dataModel}" paginator="true" rows="10"
+						value="#{allChallengesBean.dataModel}" paginator="true" rows="5"
 						paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
 						resizableColumns="true" rowsPerPageTemplate="5,10,15"
 						selection="#{allChallengesBean.selectedChallenge}"

@@ -22,6 +22,10 @@ public interface ChallengeService {
 	
     public <T> List< ? extends Challengeable> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String,Object> filters, Class <? extends Challengeable> clazz);
 	
+    /** obtains the total number of entries corresponding to the filters criteria **/
+    public long totalCount(Map<String,Object> filters, Class <? extends Challengeable> clazz);
+
+    
 	public void createChallenge (List <Challenge> challenges);
 	
 	/**
