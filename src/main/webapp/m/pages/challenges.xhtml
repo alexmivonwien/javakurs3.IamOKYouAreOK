@@ -3,14 +3,15 @@
         xmlns:ui="http://java.sun.com/jsf/facelets"
         xmlns:h="http://java.sun.com/jsf/html"
         xmlns:f="http://java.sun.com/jsf/core"
-        xmlns:p="http://primefaces.org/ui">
+        xmlns:p="http://primefaces.org/ui"
+        xmlns:pm="http://primefaces.org/mobile">
 <h:body>
-	<ui:composition template="/WEB-INF/includes/d/template.xhtml">
+	<ui:composition template="/WEB-INF/includes/m/template.xhtml">
 		<ui:define name="menu">
-			<ui:include src="/WEB-INF/includes/d/menu.xhtml" />
+			<ui:include src="/WEB-INF/includes/m/menu.xhtml" />
 		</ui:define>
 		<ui:define name="main_box">
-			<f:view>
+			 <pm:content>
 				<h:form id="form">
 					<p:growl id="growl" life="2000" />
 					<p:panel header="All challenges" />
@@ -21,17 +22,7 @@
 						selection="#{allChallengesBean.selectedChallenge}"
 						selectionMode="single"
 						rowKey="#{challenge.id}" lazy="true">
-						 <p:ajax event="rowSelect" listener="#{allChallengesBean.onRowSelect}"  update=":form"/> 
-						 <!-- update=":form:editChallenge" oncomplete="PF('challengeDialog').show()" />
-				      	 <f:facet name="header">
-			            	RadioButton
-			        	</f:facet> 
-						<p:column
-							style="width:16px;text-align:center" />  -->
-						<p:column headerText="Id" style="width:32px;text-align:center"
-							sortBy="#{challenge.id}" filterBy="#{challenge.id}">
-							<h:outputText value="#{challenge.id}" />
-						</p:column>
+						<p:ajax event="rowSelect" listener="#{allChallengesBean.onRowSelect}"  update=":form"/> 
 						<p:column headerText="Name" sortBy="#{challenge.name}"
 							filterBy="#{challenge.name}">
 							<h:outputText value="#{challenge.name}" />
@@ -40,31 +31,21 @@
 							filterBy="#{challenge.category}">
 							<h:outputText value="#{challenge.category}" />
 						</p:column>
-						<p:column headerText="Level" sortBy="#{challenge.level}"
-							filterBy="#{challenge.level}">
-							<h:outputText value="#{challenge.level}" />
-						</p:column>
-						<p:column headerText="Description" sortBy="#{challenge.descriptionShort}"
-							filterBy="#{challenge.descriptionShort}">
-							<h:outputText value="#{challenge.descriptionShort}" />
-						</p:column>
-						<p:column headerText="Created By" sortBy="#{challenge.createdBy.username}"
+						<p:column headerText="By" sortBy="#{challenge.createdBy.username}"
 							filterBy="#{challenge.createdBy.username}">
 							<h:outputText value="#{challenge.createdBy.username}" />
 						</p:column>
-						<f:facet name="footer" id="formButtons">
-							<p:commandButton id="editChallenge" process="challengeTable"
-								icon="ui-icon-search" value="Edit"
-								update=":form:growl" actionListener="#{allChallengesBean.editChallengeable}" styleClass="ui-priority-primary"/>
-							<p:commandButton id="createAssignment" process="challengeTable"
-								icon="ui-icon-search" value="Create Assignment"
-								update=":form:growl" actionListener="#{allChallengesBean.createAssignment}" styleClass="ui-priority-primary" 
-								rendered = "#{not empty allChallengesBean.selectedChallenge}"/>
-							<p:commandButton id="viewAssignments" process="challengeTable"
-							icon="ui-icon-search" value="View Assignments"
-							action="#{allChallengesBean.processButton('viewAssignments')}" />
-						</f:facet>
 					</p:dataTable>
+					<p:commandButton id="editChallenge" process="challengeTable"
+						icon="ui-icon-search" value="Edit"
+						update=":form:growl" actionListener="#{allChallengesBean.editChallengeable}" styleClass="ui-priority-primary"/>
+					<p:commandButton id="createAssignment" process="challengeTable"
+						icon="ui-icon-search" value="Create Assignment"
+						update=":form:growl" actionListener="#{allChallengesBean.createAssignment}" styleClass="ui-priority-primary" 
+						rendered = "#{not empty allChallengesBean.selectedChallenge}"/>
+					<p:commandButton id="viewAssignments" process="challengeTable"
+						icon="ui-icon-search" value="View Assignments"
+						action="#{allChallengesBean.processButton('viewAssignments')}" />
 					<p:dialog header="Challenge Detail" widgetVar="challengeDialog"
 						modal="true" showEffect="fade" hideEffect="fade" resizable="false">
 						<p:outputPanel id="challengeDetail" style="text-align:center;">
@@ -73,21 +54,21 @@
 								columnClasses="label,value">
 								<h:outputText value="Id:" />
 								<h:outputText value="#{allChallengesBean.selectedChallenge.id}" />
-
+	
 								<h:outputText value="Name:" />
 								<h:outputText
 									value="#{allChallengesBean.selectedChallenge.name}" />
-
+	
 								<h:outputText value="Description:" />
 								<h:outputText
 									value="#{allChallengesBean.selectedChallenge.description}" />
-
+	
 							</p:panelGrid>
 						</p:outputPanel>
 					</p:dialog>
 				</h:form>
-			</f:view>
-		</ui:define>
-	</ui:composition>
-</h:body>
+				</pm:content>
+			</ui:define>
+		</ui:composition>
+	</h:body>
 </html>

@@ -4,29 +4,31 @@
         xmlns:h="http://java.sun.com/jsf/html"
         xmlns:f="http://java.sun.com/jsf/core"
         xmlns:p="http://primefaces.org/ui">
-<h:head>
-	<title>I am OK, You are OK</title>
-	<meta property="og:url"           content="http://10.0.0.2:8080/IamOKYouAreOK/pages/assignment.jsf?assId=#{assignmentBean.assId}" />
-	<meta property="og:type"          content="website" />
-	<meta property="og:title"         content=" I am OK, you are OK" />
-	<meta property="og:description"   content="The web site for doing good things" />
-	<meta property="og:image"         content="http://10.0.0.2:8080/IamOKYouAreOK/images/ok_hands.jpg" />  
-</h:head>
-<h:body>
-	<h:outputStylesheet name="./css/styles.css"  />
-	<h:outputScript library="js" name="common.js" />
-	<h:outputScript library="js" name="facebook.js" />
-        <div id="container">
-           <ui:insert name="menu" />
-               <div id="content">
-                       <div id="page_main_box">
-                           <ui:insert name="main_box"/>
-                       </div>
-                       <div id="footer">
-                       		 <p id="usersOnline"></p>
-                            <p>I am OK, You are OK, Copyright @2016 Alex-Mi</p>
-                       </div>
-               </div>
-        </div>
-</h:body>
+<f:view renderKitId="PRIMEFACES_MOBILE">
+	<h:head>
+		<title>I am OK, You are OK</title>
+		<meta property="og:url"           content="http://10.0.0.2:8080/IamOKYouAreOK/pages/assignment.jsf?assId=#{assignmentBean.assId}" />
+		<meta property="og:type"          content="website" />
+		<meta property="og:title"         content=" I am OK, you are OK" />
+		<meta property="og:description"   content="The web site for doing good things" />
+		<meta property="og:image"         content="http://10.0.0.2:8080/IamOKYouAreOK/images/ok_hands.jpg" />  
+	</h:head>
+	<h:body>
+		<h:outputStylesheet name="./css/styles.css"  />
+		<h:outputScript library="js" name="common.js" />
+		<h:outputScript library="js" name="facebook.js" />
+	        <div id="container">
+	           <ui:insert name="menu"/>
+	               <div id="content">
+	                       <div id="page_main_box">
+	                           <ui:insert name="main_box"/>
+	                       </div>
+	                       <div id="footer">
+	                       		 <p id="usersOnline"></p>
+	                            <p>I am OK, You are OK, Copyright @2016 Alex-Mi</p>
+	                       </div>
+	               </div>
+	        </div>
+	</h:body>
+</f:view>
 </html>

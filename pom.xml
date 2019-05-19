@@ -22,12 +22,24 @@
 		</repository>  -->
 	</repositories>
 	<dependencies>
+<!-- dependencies for social auth 					BEGIN 				-->
 		<dependency>
-		  <groupId>org.brickred</groupId>
-		  <artifactId>socialauth</artifactId>
-		  <version>4.15</version>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>20160810</version>
 		</dependency>
-<!-- https://mvnrepository.com/artifact/junit/junit -->
+		<dependency>
+			<groupId>org.openid4java</groupId>
+			<artifactId>openid4java-consumer</artifactId>
+			<version>0.9.5</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+			<version>1.1</version>
+		</dependency>
+<!-- dependencies for social auth 					END 				-->
+	
 		<dependency>
 		    <groupId>junit</groupId>
 		    <artifactId>junit</artifactId>
