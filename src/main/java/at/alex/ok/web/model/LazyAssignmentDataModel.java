@@ -55,9 +55,11 @@ public class LazyAssignmentDataModel extends LazyDataModel<Assignment> {
 
 		List result = this.challengeService.load(first, pageSize, sortField,
 				sortOrder, filters, Assignment.class);
-
+		
+		int resultSize = (int)this.challengeService.totalCount(filters, Assignment.class);
+    	
 		// rowCount
-		this.setRowCount(result.size());
+		this.setRowCount(resultSize);
 
 		return result;
 	}

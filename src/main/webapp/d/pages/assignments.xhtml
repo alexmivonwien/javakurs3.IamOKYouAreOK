@@ -42,7 +42,7 @@
 				</c:if>
 				<p:panel header="${whoseAssignments} assignments ${assignmentsForChallenge}" />
 				<p:dataTable id="assignmentsTable" var="assignment"
-					value="#{allAssignmentsBean.dataModel}" paginator="true" rows="10"
+					value="#{allAssignmentsBean.dataModel}" paginator="true" rows="5"
 					paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
 					resizableColumns="true" 
 					rowsPerPageTemplate="5,10,15"
