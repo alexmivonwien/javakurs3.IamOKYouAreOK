@@ -6,6 +6,8 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
+
+import org.apache.logging.log4j.LogManager;
 import org.brickred.socialauth.SocialAuthConfig;
 import org.brickred.socialauth.SocialAuthManager;
 import de.kevcodez.servlet.SocialLoginServlet;
@@ -84,7 +86,7 @@ public class SocialLoginBean implements Serializable {
 			// Redirect durchführen
 			context.redirect(url);
 		} catch (Exception e) {
-			e.printStackTrace();
+			LogManager.getLogger().error(e.getMessage(), e);
 		}
 	}
 }

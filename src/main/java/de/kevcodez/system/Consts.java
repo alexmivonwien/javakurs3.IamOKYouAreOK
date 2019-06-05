@@ -1,5 +1,6 @@
 package de.kevcodez.system;
 
+import org.apache.logging.log4j.LogManager;
 import org.brickred.socialauth.SocialAuthConfig;
 
 /**
@@ -26,7 +27,7 @@ public final class Consts
     }
     catch (Exception e)
     {
-      e.printStackTrace();
+    	LogManager.getLogger().error(e.getMessage(), e);
     }
   }
   /**

@@ -10,6 +10,7 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 
+import org.apache.logging.log4j.LogManager;
 import org.brickred.socialauth.*;
 import org.brickred.socialauth.util.SocialAuthUtil;
 
@@ -81,7 +82,7 @@ public class SocialLoginServlet extends HttpServlet {
 					try {
 						user = userService.createAndRegisterUser(userName, eMail, User.DEFAULT_FB_PASSWORD);
 					} catch (Exception e) {
-						e.printStackTrace();
+						LogManager.getLogger().error(e.getMessage(), e);
 						user = null;
 					}
 					

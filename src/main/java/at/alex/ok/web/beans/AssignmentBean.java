@@ -355,7 +355,7 @@ public class AssignmentBean implements Serializable {
 					null,
 					new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR I/O",
 							e1.getMessage()));
-			e1.printStackTrace();
+			LogManager.getLogger().error("Invalid Request parameter " + e1.getMessage(), e1);
 		}
 
 	}

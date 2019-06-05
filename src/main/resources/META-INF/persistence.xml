@@ -8,13 +8,13 @@
      <description>I am OK</description>
   	 <provider>org.hibernate.ejb.HibernatePersistence</provider>
   	 
-     <jta-data-source>java:/MySqlDS_IamOK</jta-data-source> 
+     <jta-data-source>java:jboss/datasources/ExampleDS</jta-data-source> 
    	 <properties>
-            <property name="hibernate.dialect" value = "org.hibernate.dialect.MySQLDialect" />
+            <property name="hibernate.dialect" value = "org.hibernate.dialect.H2Dialect" />
             <property name="hibernate.cache.provider_class" value="org.hibernate.cache.NoCacheProvider"/>  
             <property name="hibernate.show_sql" value="true"></property>  
             <property name="hibernate.max_fetch_depth" value="3" />
-            <property name="hibernate.hbm2ddl.auto" value="update"/> 
+            <property name="hibernate.hbm2ddl.auto" value="create"/> 
             <property name="hibernate.show_sql" value="true" />
         </properties>
    </persistence-unit>
