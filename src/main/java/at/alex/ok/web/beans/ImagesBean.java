@@ -1,17 +1,16 @@
 package at.alex.ok.web.beans;
 
 import java.io.File;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import javax.faces.bean.ApplicationScoped;
-import javax.faces.bean.ManagedBean;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseId;
-import javax.servlet.http.HttpServletRequest;
+import javax.inject.Named;
 
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -19,8 +18,8 @@ import org.primefaces.model.ByteArrayContent;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 
-@ApplicationScoped
-@ManagedBean (name = "imagesBean")
+@javax.enterprise.context.ApplicationScoped
+@Named ("imagesBean")
 public class ImagesBean {
 	
 	
