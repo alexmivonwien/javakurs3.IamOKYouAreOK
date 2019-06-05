@@ -7,6 +7,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
+import javax.inject.Named;
 
 import at.alex.ok.model.Challenge;
 import at.alex.ok.web.model.LazyChallengeDataModel;
@@ -21,11 +22,25 @@ import at.alex.ok.web.utils.NavigationUtils;
  * http://stackoverflow.com/questions/14812238/jsf-view-scoped-bean-
  * reconstructed-multiple-times
  * 
- * @author User
- *
+ * 
+ * @author Alex-Mi
+ * 
+ * As per JSF 2.2 and higher, @ManagedBean is deprecated. Use @Named together with @javax.faces.view.ViewScoped,
+ * @see https://stackoverflow.com/a/4347707/1925356
+ * @see @javax.faces.view.ViewScoped documentation:  
+ * 
+ * When this annotation, along with javax.inject.Named is found on a class, the runtime must place
+ * the bean in a CDI scope such that it remains active as long as javax.faces.application.NavigationHandler.handleNavigation 
+ * does not cause a navigation to a view with a viewId that is different than theview Id of the current view. Any injections and
+ * notifications required by CDI and the Java EE platform must occur as usual at the expected time.
+ * 
+ * 
  */
-@ManagedBean(name = "allChallengesBean")
-@ViewScoped
+
+@Named ("allChallengesBean")
+@javax.faces.view.ViewScoped
+// javax.faces.bean.ViewScoped is deprecated as per JSF 2.2
+// javax.faces.bean.ManagedBean is deprecated as per JSF 2.2
 public class AllChallengesBean extends AllChallengeableBean {
 
 	public static final String SELECTED_CHALLENGE_PARAM = "selectedChallenge";
