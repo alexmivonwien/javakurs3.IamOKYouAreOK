@@ -1,5 +1,6 @@
 package at.alex.ok.web.beans;
 
+import java.io.Serializable;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +12,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.Flash;
 import javax.faces.model.SelectItem;
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import at.alex.ok.model.Challenge;
 import at.alex.ok.model.User;
@@ -20,9 +22,34 @@ import at.alex.ok.services.ChallengeService;
 import at.alex.ok.services.UserService;
 import at.alex.ok.web.utils.NavigationUtils;
 
-@ViewScoped
-@ManagedBean(name = "challengeBean")
-public class ChallengeBean {
+
+/**
+ * Unless you're using JSF 2.2 (which is still not out yet at this moment) or
+ * MyFaces CODI (which I'd have expected that you would explicitly mention that)
+ * the @ViewScoped doesn't work in CDI. This also pretty much matches your
+ * problem symptoms.
+ * 
+ * http://stackoverflow.com/questions/14812238/jsf-view-scoped-bean-
+ * reconstructed-multiple-times
+ * 
+ * 
+ * As per JSF 2.2 and higher, @ManagedBean is deprecated. Use @Named together with @javax.faces.view.ViewScoped,
+ * @see https://stackoverflow.com/a/4347707/1925356
+ * @see @javax.faces.view.ViewScoped documentation:  
+ * 
+ * When this annotation, along with javax.inject.Named is found on a class, the runtime must place
+ * the bean in a CDI scope such that it remains active as long as javax.faces.application.NavigationHandler.handleNavigation 
+ * does not cause a navigation to a view with a viewId that is different than theview Id of the current view. Any injections and
+ * notifications required by CDI and the Java EE platform must occur as usual at the expected time.
+ * 
+ * 
+ */
+
+@Named ("challengeBean")
+@javax.faces.view.ViewScoped
+// javax.faces.bean.ViewScoped is deprecated as per JSF 2.2
+// javax.faces.bean.ManagedBean is deprecated as per JSF 2.2
+public class ChallengeBean implements Serializable{
 
 	@Inject
 	private ChallengeService challengeService;

@@ -1,5 +1,7 @@
 package at.alex.ok.web.beans;
 
+import java.io.Serializable;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
@@ -10,7 +12,7 @@ import org.primefaces.event.SelectEvent;
 import at.alex.ok.model.Challengeable;
 import at.alex.ok.web.utils.NavigationUtils;
 
-public abstract class AllChallengeableBean {
+public abstract class AllChallengeableBean  implements Serializable{
 
 	private Challengeable selectedChallengeable;
 
