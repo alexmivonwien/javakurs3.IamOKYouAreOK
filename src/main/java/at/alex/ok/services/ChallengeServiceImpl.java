@@ -11,6 +11,8 @@ import java.util.Set;
 
 import javax.ejb.Local;
 import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -37,6 +39,7 @@ public class ChallengeServiceImpl implements ChallengeService {
 	private EntityManager em;
 
 	@Override
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public void createChallenge(List<Challenge> challenges) {
 
 		for (Challenge challenge: challenges){
@@ -112,6 +115,7 @@ public class ChallengeServiceImpl implements ChallengeService {
     
 		
 	@Override
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public Result createOrUpdateAssignment(Assignment modifiedAssignment) {
 		
 		Assignment existingAssignment = null;
