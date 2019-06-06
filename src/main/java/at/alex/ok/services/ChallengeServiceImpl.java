@@ -115,7 +115,7 @@ public class ChallengeServiceImpl implements ChallengeService {
     
 		
 	@Override
-	@TransactionAttribute(TransactionAttributeType.REQUIRED)
+	@TransactionAttribute(TransactionAttributeType.REQUIRED) 
 	public Result createOrUpdateAssignment(Assignment modifiedAssignment) {
 		
 		Assignment existingAssignment = null;
